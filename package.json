@@ -1,0 +1,26 @@
+{
+  "name": "@adobe/aio-lib-core-errors",
+  "version": "1.0.0",
+  "description": "Adobe I/O CNA SDK Core Errors",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "npm run lint && jest --coverage",
+    "lint": "eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git.corp.adobe.com/CNA/aio-lib-core-errors.git"
+  },
+  "author": "Adobe Inc.",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "eslint": "^6.2.2",
+    "eslint-config-standard": "^14.0.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jest": "^22.15.2",
+    "eslint-plugin-node": "^9.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "jest": "^24.9.0"
+  }
+}
