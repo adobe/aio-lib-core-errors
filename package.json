@@ -1,7 +1,7 @@
 {
   "name": "@adobe/aio-lib-core-errors",
   "version": "1.0.1",
-  "description": "Adobe I/O CNA SDK Core Errors",
+  "description": "Adobe I/O SDK Core Errors",
   "main": "src/index.js",
   "scripts": {
     "test": "npm run lint && jest --coverage",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://git.corp.adobe.com/CNA/aio-lib-core-errors.git"
+    "url": "https://github.com/adobe/aio-lib-core-errors.git"
   },
   "author": "Adobe Inc.",
   "license": "Apache-2.0",
