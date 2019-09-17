@@ -1,6 +1,6 @@
 {
   "name": "@adobe/aio-lib-core-errors",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Adobe I/O CNA SDK Core Errors",
   "main": "src/index.js",
   "scripts": {
