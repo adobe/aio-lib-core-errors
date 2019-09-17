@@ -14,12 +14,25 @@ This contains the base class for all Adobe I/O Core Errors. Use this as an Error
 
 This module was inspired by how Node.js creates its own Error classes.
 
+## CNACoreSDKError
+
+This is the base class for all the Error classes, and it should not be instantiated directly. Create your own subclass (dynamic usage) or use the ErrorWrapper below (static usage).
+
+The `message` property of `CNACoreSDKError` outputs the Error in this format:
+```bash
+[SDK:ERROR_CODE] ERROR_MESSAGE
+```
+- `SDK` is the SDK name
+- `ERROR_CODE` is the error code
+- `ERROR_MESSAGE` is the error message
+
+Note that the `sdk details` is not displayed in the message. To see any `sdk details`, you will need to convert the Error object itself to JSON via `.toJSON()` (`JSON.stringify` will convert the Error object as well, via invoking `.toJSON()` on the Error object)
+
 ## Dynamic Errors Usage
 
 ```javascript
 // Adobe I/O CNA Campaign Standard Wrapper
 
-// proposed namespace
 const { CNACoreSDKError } = require('@adobe/adobe-io-cna-errors')
 
 const gSDKDetails = {
@@ -31,6 +44,7 @@ const gSDKName = "AdobeIOCNACampaignStandard"
 
 export default class CampaignStandardCoreAPIError extends CNACoreSDKError {
   constructor(message, code) {
+    // the sdk name and sdk details are curried in as the 3rd and 4th parameters
     super(message, code, gSDKName, gSDKDetails)
   }
 }
@@ -38,7 +52,7 @@ export default class CampaignStandardCoreAPIError extends CNACoreSDKError {
 
 So if we have this wrapper function, we change from:
 ```javascript
-getAllProfiles (parameters) {
+function getAllProfiles (parameters) {
     return new Promise((resolve, reject) => {
       const apiFunc = 'getAllProfiles'
       this.sdk.apis.profile[apiFunc]()
@@ -56,7 +70,7 @@ getAllProfiles (parameters) {
 
 to this:
 ```javascript
-getAllProfiles (parameters) {
+function getAllProfiles (parameters) {
     return new Promise((resolve, reject) => {
       const apiFunc = 'getAllProfiles'
       this.sdk.apis.profile[apiFunc]()
@@ -66,7 +80,7 @@ getAllProfiles (parameters) {
         .catch(err => {
           debug(err)
           // >>>>>NEW<<<<<<<<<
-          reject(new CampaignStandardCoreAPIError(err.message, apiFunc))
+          reject(new CampaignStandardCoreAPIError(err.message /* error message */, apiFunc /* error code */))
         })
     })
 }
@@ -78,10 +92,13 @@ As you can see, this is not very intuitive, and may be error-prone. We can do be
 
 The example Usage above is for dynamic errors, for example API errors that we are wrapping. Static errors are much better: they are more intuitive to use, and much better for code readability.
 
-We can define our specialized Error class, and error codes in its own module like so:
+
+### 1. Create your Error Class via the ErrorWrapper
+
+We define our specialized Error class, and error codes in its own module like so:
 ```javascript
-// MySDKError.js
-const { ErrorWrapper, createUpdater } = require('../../src').CNACoreSDKErrorWrapper
+// SDKErrors.js
+const { ErrorWrapper, createUpdater } = require('@adobe/aio-lib-core-errors').CNACoreSDKErrorWrapper
 
 const codes = {}
 const messages = new Map()
@@ -107,7 +124,7 @@ const E = ErrorWrapper(
   // the object returned from the CreateUpdater call above
   Updater
   // the base class that your Error class is extending. CNACoreSDKError is the default
-  /* CNACoreSDKError, */
+  /* , CNACoreSDKError */
 )
 
 module.exports = {
@@ -120,7 +137,7 @@ E('UNKNOWN_THING_ID', 'There was a problem with that thing')
 E('UNKNOWN_ORDER_ID', 'There was a problem with that order id: %s.')
 ```
 
-## Error Class Wrapper
+#### Error Class Wrapper
 
 Let's parse what this line means:
 ```javascript
@@ -128,34 +145,36 @@ E('UNKNOWN_ORDER_ID', 'There was a problem with that order id: %s.')
 ```
 
 This will dynamically create a `MySDKError` class with the appropriate closures for values:
-- sdk name
-- sdk error class name
-- error code
-- error message
+- sdk name (`MySDK`, passed in to the ErrorWrapper constructor above)
+- sdk error class name (`MySDKError`, passed in to the ErrorWrapper constructor above)
+- error code (`UNKNOWN_ORDER_ID`, the first parameter passed in to `E`)
+- error message (`There was a problem with that order id: %s.`, the second parameter passed in to `E`. If this is a string with `format specifiers`, you can pass in arguments for the format specifiers, when the Error is constructed. See example below).
 ```javascript
 class MySDKError extends CNACoreSDKError { ... }
 ```
 
-The line will add the dynamically created `MySDKError` class to the `codes` object, with the first parameter to the wrapper (the error code) as the key.
+The line will add the dynamically created `MySDKError` class to the exported `codes` object, with the first parameter to the wrapper (the error code) as the key.
 
 The `constructor` for the class created takes one parameter, an object:
 ```javascript
 constructor(parameters)
 ```
 - `parameters` (optional) is an `object`
-- `parameters.sdkDetails` (optional) is an `object` that you want to pass in as additional data for the Error object.
-- `parameters.messageValues` (optional) is a `string`, `number`, `object` or an `array` of the items that you want to apply to the error message, if the message has a [format specifier](https://nodejs.org/api/util.html#util_util_format_format_args)
+- `parameters.sdkDetails` (optional) is an `object` that you want to pass in as additional data for the Error object. e.g. function parameters for an API call.
+- `parameters.messageValues` (optional) is a `string`, `number`, `object` or an `array` of the items that you want to apply to the error message, if the message has a [format specifier](https://nodejs.org/api/util.html#util_util_format_format_args).
 
 In the error specification line below, you can see it has one format specifier `%s`:
 ```javascript
 E('UNKNOWN_ORDER_ID', 'There was a problem with that order id: %s.')
 ```
 
-## Static Errors Usage
+### 2. Use Your Error Classes
 
 Import the static error code Error classes, and use directly.
 ```javascript
-const { UNKNOWN_THING_ID, UNKNOWN_ORDER_ID } = require('./MySDKError').codes
+ const { UNKNOWN_THING_ID, UNKNOWN_ORDER_ID } = require('./SDKErrors').codes
+// or, if you have too many codes to destructure:
+// const { codes } = require('./SDKErrors')
 
 const gSdkDetails = {
   tenantId: 'mytenant'
@@ -168,17 +187,41 @@ if (unknownThing) {
 
 const unknownOrderId = true
 if (unknownOrderId) {
-  // messageValues can either be a string or array of strings
+  // messageValues can either be a string, object, etc or an array of them
   throw new UNKNOWN_ORDER_ID({ 
     sdkDetails: gSDKDetails,
     messageValues: ['ORDER-2125SFG']
   }) ) 
 }
+
+function getOrder(orderId) {
+  // we just wrap the function arguments as the sdkDetails
+  const sdkDetails = { orderId }
+  const somethingWentWrong = true
+
+  if (somethingWentWrong) {
+  // messageValues can either be a string, object, etc or an array of them
+    throw new UNKNOWN_ORDER_ID({ 
+      sdkDetails: sDKDetails,
+      messageValues: 'ORDER-2125SFGF'
+    }) ) 
+  }
+}
+
+getOrder('abc123')
 ```
 
 ## Example Console Output
-
-Print out a thrown `UNKNOWN_ORDER_ID` Error object to console:
+---
+Print out a thrown `UNKNOWN_ORDER_ID` Error object to the console. `console` calls the `.toString()` method for the Error object, and the resulting data is not structured well, and will not expand nested objects:
+```javascript
+try {
+  throw new UNKNOWN_ORDER_ID()
+} catch (e) {
+  console.error(e)
+}
+```
+Output:
 ```bash
  { MySDKError: [MySDK:UNKNOWN_ORDER_ID] There was a problem with that order id: ORDER-21241-FSFS.
           at new <anonymous> (/Users/obfuscated/adobeio-cna-errors/src/CNACoreSDKErrorWrapper.js:22:9)
@@ -194,18 +237,26 @@ Print out a thrown `UNKNOWN_ORDER_ID` Error object to console:
         sdkDetails: { tenantId: 'MYTENANT2' },
         name: 'MySDKError' }
 ```
-
-Print out a thrown `UNKNOWN_ORDER_ID` Error object's `message` to console:
-```bash
-[MySDK:UNKNOWN_ORDER_ID] There was a problem with that order id: ORDER-21241-FSFS.
-```
-
-Convert a thrown `UNKNOWN_ORDER_ID` Error object to JSON and print to console:
+---
+Simply print out a thrown `UNKNOWN_ORDER_ID` Error object's `message` property to the console:
 ```javascript
 try {
   throw new UNKNOWN_ORDER_ID()
 } catch (e) {
-  console.log(JSON.stringify(e, null, 2))
+  console.error(e.message)
+}
+```
+Output:
+```bash
+[MySDK:UNKNOWN_ORDER_ID] There was a problem with that order id: ORDER-21241-FSFS.
+```
+---
+Convert a thrown `UNKNOWN_ORDER_ID` Error object to JSON and print to the console. `console` calls the `.toJSON()` method of the Error object, and will expand nested objects:
+```javascript
+try {
+  throw new UNKNOWN_ORDER_ID()
+} catch (e) {
+  console.error(JSON.stringify(e, null, 2))
 }
 ```
 Output:
