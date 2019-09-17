@@ -33,8 +33,8 @@ test('CNACoreSDKError with parameters', () => {
   const message = 'This is an error message'
   const code = 'ERR_CODE_1'
 
-  // Default, no arguments
-  const err = new CNACoreSDKError(message, code, sdk, sdkDetails)
+  // set some arguments
+  const err = new CNACoreSDKError(message, code, sdk, sdkDetails, null)
 
   expect(err instanceof Object).toBeTruthy()
   expect(err.sdk).toEqual(sdk)

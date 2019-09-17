@@ -18,13 +18,14 @@ class CNACoreSDKError extends Error {
     message = '<no_message>',
     code = '<unknown_code>',
     sdk = '<unknown_sdk>',
-    sdkDetails = {}
+    sdkDetails = {},
+    captureStackTrace = Error.captureStackTrace
   ) {
     super(`[${sdk}:${code}] ${message}`)
 
     // Maintains proper stack trace for where our error was thrown (only available on V8)
-    if (Error.captureStackTrace) {
-      Error.captureStackTrace(this, CNACoreSDKError)
+    if (captureStackTrace && captureStackTrace instanceof Function) {
+      captureStackTrace(this, CNACoreSDKError)
     }
 
     this.code = code
