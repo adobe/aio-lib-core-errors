@@ -14,11 +14,11 @@ This contains the base class for all Adobe I/O Core Errors. Use this as an Error
 
 This module was inspired by how Node.js creates its own Error classes.
 
-## CNACoreSDKError
+## AioCoreSDKError
 
 This is the base class for all the Error classes, and it should not be instantiated directly. Create your own subclass (dynamic usage) or use the ErrorWrapper below (static usage).
 
-The `message` property of `CNACoreSDKError` outputs the Error in this format:
+The `message` property of `AioCoreSDKError` outputs the Error in this format:
 ```bash
 [SDK:ERROR_CODE] ERROR_MESSAGE
 ```
@@ -31,18 +31,18 @@ Note that the `sdk details` is not displayed in the message. To see any `sdk det
 ## Dynamic Errors Usage
 
 ```javascript
-// Adobe I/O CNA Campaign Standard Wrapper
+// Adobe I/O Campaign Standard Wrapper
 
-const { CNACoreSDKError } = require('@adobe/adobe-io-cna-errors')
+const { AioCoreSDKError } = require('@adobe/aio-lib-errors')
 
 const gSDKDetails = {
   // ... add your sdk details here
   tenantId,
   endpoint
 }
-const gSDKName = "AdobeIOCNACampaignStandard"
+const gSDKName = "AdobeIOCampaignStandard"
 
-export default class CampaignStandardCoreAPIError extends CNACoreSDKError {
+export default class CampaignStandardCoreAPIError extends AioCoreSDKError {
   constructor(message, code) {
     // the sdk name and sdk details are curried in as the 3rd and 4th parameters
     super(message, code, gSDKName, gSDKDetails)
@@ -98,7 +98,7 @@ The example Usage above is for dynamic errors, for example API errors that we ar
 We define our specialized Error class, and error codes in its own module like so:
 ```javascript
 // SDKErrors.js
-const { ErrorWrapper, createUpdater } = require('@adobe/aio-lib-core-errors').CNACoreSDKErrorWrapper
+const { ErrorWrapper, createUpdater } = require('@adobe/aio-lib-core-errors').AioCoreSDKErrorWrapper
 
 const codes = {}
 const messages = new Map()
@@ -123,8 +123,8 @@ const E = ErrorWrapper(
   'MySDK',
   // the object returned from the CreateUpdater call above
   Updater
-  // the base class that your Error class is extending. CNACoreSDKError is the default
-  /* , CNACoreSDKError */
+  // the base class that your Error class is extending. AioCoreSDKError is the default
+  /* , AioCoreSDKError */
 )
 
 module.exports = {
@@ -150,7 +150,7 @@ This will dynamically create a `MySDKError` class with the appropriate closures 
 - error code (`UNKNOWN_ORDER_ID`, the first parameter passed in to `E`)
 - error message (`There was a problem with that order id: %s.`, the second parameter passed in to `E`. If this is a string with `format specifiers`, you can pass in arguments for the format specifiers, when the Error is constructed. See example below).
 ```javascript
-class MySDKError extends CNACoreSDKError { ... }
+class MySDKError extends AioCoreSDKError { ... }
 ```
 
 The line will add the dynamically created `MySDKError` class to the exported `codes` object, with the first parameter to the wrapper (the error code) as the key.
@@ -224,13 +224,13 @@ try {
 Output:
 ```bash
  { MySDKError: [MySDK:UNKNOWN_ORDER_ID] There was a problem with that order id: ORDER-21241-FSFS.
-          at new <anonymous> (/Users/obfuscated/adobeio-cna-errors/src/CNACoreSDKErrorWrapper.js:22:9)
-          at Object.<anonymous>.test (/Users/obfuscated/adobeio-cna-errors/test/MySDKError.test.js:50:15)
-          at Object.asyncJestTest (/Users/obfuscated/adobeio-cna-errors/node_modules/jest-jasmine2/build/jasmineAsyncInstall.js:102:37)
-          at resolve (/Users/obfuscated/adobeio-cna-errors/node_modules/jest-jasmine2/build/queueRunner.js:43:12)
+          at new <anonymous> (/Users/obfuscated/aio-lib-core-errors/src/AioCoreSDKErrorWrapper.js:22:9)
+          at Object.<anonymous>.test (/Users/obfuscated/aio-lib-core-errors/test/MySDKError.test.js:50:15)
+          at Object.asyncJestTest (/Users/obfuscated/aio-lib-core-errors/node_modules/jest-jasmine2/build/jasmineAsyncInstall.js:102:37)
+          at resolve (/Users/obfuscated/aio-lib-core-errors/node_modules/jest-jasmine2/build/queueRunner.js:43:12)
           at new Promise (<anonymous>)
-          at mapper (/Users/obfuscated/adobeio-cna-errors/node_modules/jest-jasmine2/build/queueRunner.js:26:19)
-          at promise.then (/Users/obfuscated/adobeio-cna-errors/node_modules/jest-jasmine2/build/queueRunner.js:73:41)
+          at mapper (/Users/obfuscated/aio-lib-core-errors/node_modules/jest-jasmine2/build/queueRunner.js:26:19)
+          at promise.then (/Users/obfuscated/aio-lib-core-errors/node_modules/jest-jasmine2/build/queueRunner.js:73:41)
           at process._tickCallback (internal/process/next_tick.js:68:7)
         code: 'UNKNOWN_ORDER_ID',
         sdk: 'MySDK',
@@ -270,6 +270,6 @@ Output:
 	},
 	"code": "UNKNOWN_ORDER_ID",
 	"message": "[MySDK:UNKNOWN_ORDER_ID] There was a problem with that order id: ORDER-21241-FSFS.",
-	"stacktrace": "MySDKError: [MySDK:UNKNOWN_ORDER_ID] There was a problem with that order id: ORDER-21241-FSFS.\n    at new <anonymous> (/Users/obfuscated/adobeio-cna-errors/src/CNACoreSDKErrorWrapper.js:22:9)\n    at Object.<anonymous>.test (/Users/obfuscated/adobeio-cna-errors/test/MySDKError.test.js:50:15)\n    at Object.asyncJestTest (/Users/obfuscated/adobeio-cna-errors/node_modules/jest-jasmine2/build/jasmineAsyncInstall.js:102:37)\n    at resolve (/Users/obfuscated/adobeio-cna-errors/node_modules/jest-jasmine2/build/queueRunner.js:43:12)\n    at new Promise (<anonymous>)\n    at mapper (/Users/obfuscated/adobeio-cna-errors/node_modules/jest-jasmine2/build/queueRunner.js:26:19)\n    at promise.then (/Users/obfuscated/adobeio-cna-errors/node_modules/jest-jasmine2/build/queueRunner.js:73:41)\n    at process._tickCallback (internal/process/next_tick.js:68:7)"
+	"stacktrace": "MySDKError: [MySDK:UNKNOWN_ORDER_ID] There was a problem with that order id: ORDER-21241-FSFS.\n    at new <anonymous> (/Users/obfuscated/aio-lib-core-errors/src/AioCoreSDKErrorWrapper.js:22:9)\n    at Object.<anonymous>.test (/Users/obfuscated/aio-lib-core-errors/test/MySDKError.test.js:50:15)\n    at Object.asyncJestTest (/Users/obfuscated/aio-lib-core-errors/node_modules/jest-jasmine2/build/jasmineAsyncInstall.js:102:37)\n    at resolve (/Users/obfuscated/aio-lib-core-errors/node_modules/jest-jasmine2/build/queueRunner.js:43:12)\n    at new Promise (<anonymous>)\n    at mapper (/Users/obfuscated/aio-lib-core-errors/node_modules/jest-jasmine2/build/queueRunner.js:26:19)\n    at promise.then (/Users/obfuscated/aio-lib-core-errors/node_modules/jest-jasmine2/build/queueRunner.js:73:41)\n    at process._tickCallback (internal/process/next_tick.js:68:7)"
 }
 ```

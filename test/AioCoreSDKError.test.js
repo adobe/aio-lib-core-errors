@@ -9,16 +9,16 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-const { CNACoreSDKError } = require('../src')
+const { AioCoreSDKError } = require('../src')
 
-test('CNACoreSDKError default', () => {
+test('AioCoreSDKError default', () => {
   const sdk = '<unknown_sdk>'
   const sdkDetails = {}
   const message = '<no_message>'
   const code = '<unknown_code>'
 
   // Default, no arguments
-  const err = new CNACoreSDKError()
+  const err = new AioCoreSDKError()
 
   expect(err instanceof Object).toBeTruthy()
   expect(err.sdk).toEqual(sdk)
@@ -27,14 +27,14 @@ test('CNACoreSDKError default', () => {
   expect(err.code).toEqual(code)
 })
 
-test('CNACoreSDKError with parameters', () => {
+test('AioCoreSDKError with parameters', () => {
   const sdk = 'MySDK'
   const sdkDetails = { endpoint: 'http://foo.bar' }
   const message = 'This is an error message'
   const code = 'ERR_CODE_1'
 
   // set some arguments
-  const err = new CNACoreSDKError(message, code, sdk, sdkDetails, null)
+  const err = new AioCoreSDKError(message, code, sdk, sdkDetails, null)
 
   expect(err instanceof Object).toBeTruthy()
   expect(err.sdk).toEqual(sdk)

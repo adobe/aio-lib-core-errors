@@ -9,10 +9,10 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-const CNACoreSDKError = require('./CNACoreSDKError')
-const CNACoreSDKErrorWrapper = require('./CNACoreSDKErrorWrapper')
+const AioCoreSDKError = require('./AioCoreSDKError')
+const AioCoreSDKErrorWrapper = require('./AioCoreSDKErrorWrapper')
 
 module.exports = {
-  CNACoreSDKError,
-  CNACoreSDKErrorWrapper
+  AioCoreSDKError,
+  AioCoreSDKErrorWrapper
 }
