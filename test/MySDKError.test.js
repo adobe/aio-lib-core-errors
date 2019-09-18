@@ -13,7 +13,7 @@ const util = require('util')
 
 const { codes, messages } = require('./classes/MySDKError')
 const { UNKNOWN_THING_ID, UNKNOWN_ORDER_ID } = require('./classes/MySDKError').codes
-const { CNACoreSDKError } = require('../src')
+const { AioCoreSDKError } = require('../src')
 
 test('codes', () => {
   expect(codes.UNKNOWN_THING_ID).toBeDefined()
@@ -31,7 +31,7 @@ test('UNKNOWN_THING_ID default', () => {
   // You can pass in the sdkDetails, or not
   const err = new UNKNOWN_THING_ID()
 
-  expect(err instanceof CNACoreSDKError).toBeTruthy()
+  expect(err instanceof AioCoreSDKError).toBeTruthy()
   expect(err.sdk).toEqual(sdk)
   expect(err.sdkDetails).toEqual(sdkDetails)
   expect(err.message).toEqual(`[${sdk}:${code}] ${message}`)

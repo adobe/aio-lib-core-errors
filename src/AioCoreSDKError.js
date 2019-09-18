@@ -10,10 +10,10 @@ governing permissions and limitations under the License.
 */
 
 /**
- * Base class for all Adobe I/O CNA Core SDK Errors.
+ * Base class for all Adobe I/O Core SDK Errors.
  * Do not instantiate directly.
  */
-class CNACoreSDKError extends Error {
+class AioCoreSDKError extends Error {
   constructor (
     message = '<no_message>',
     code = '<unknown_code>',
@@ -25,7 +25,7 @@ class CNACoreSDKError extends Error {
 
     // Maintains proper stack trace for where our error was thrown (only available on V8)
     if (captureStackTrace && captureStackTrace instanceof Function) {
-      captureStackTrace(this, CNACoreSDKError)
+      captureStackTrace(this, AioCoreSDKError)
     }
 
     this.code = code
@@ -47,4 +47,4 @@ class CNACoreSDKError extends Error {
   }
 }
 
-module.exports = CNACoreSDKError
+module.exports = AioCoreSDKError

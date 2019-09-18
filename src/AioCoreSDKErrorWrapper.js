@@ -10,7 +10,7 @@ governing permissions and limitations under the License.
 */
 
 const util = require('util')
-const CNACoreSDKError = require('./CNACoreSDKError')
+const AioCoreSDKError = require('./AioCoreSDKError')
 
 /**
  * Returns a function that will dynamically create a class with the
@@ -23,9 +23,9 @@ const CNACoreSDKError = require('./CNACoreSDKError')
  * @param {string} errorClassName The class name for your SDK Error. Your Error objects will be these objects
  * @param {string} sdkName The name of your SDK. This will be a property in your Error objects
  * @param {function} Updater the object returned from a CreateUpdater call
- * @param {Class} BaseClass the base class that your Error class is extending. CNACoreSDKError is the default
+ * @param {Class} BaseClass the base class that your Error class is extending. AioCoreSDKError is the default
  */
-function ErrorWrapper (errorClassName, sdkName, Updater, BaseClass = CNACoreSDKError) {
+function ErrorWrapper (errorClassName, sdkName, Updater, BaseClass = AioCoreSDKError) {
   return function (code, message) {
     const createClass = curryCreateClass(errorClassName, sdkName, message, BaseClass)
     const clazz = createClass(code)
