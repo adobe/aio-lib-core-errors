@@ -1,6 +1,6 @@
 {
   "name": "@adobe/aio-lib-core-errors",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "Adobe I/O SDK Core Errors",
   "main": "src/index.js",
   "scripts": {
