@@ -17,7 +17,7 @@ This module was inspired by how Node.js creates its own Error classes.
 
 ## Architecture
 
-[![Adobe I/O Core Error Library Architecture](./media/architecture.svg)](./media/architecture.svg)
+[![Adobe I/O Core Error Library Architecture](./media/architecture.png)](./media/architecture.png)
 
 ## AioCoreSDKError
 
