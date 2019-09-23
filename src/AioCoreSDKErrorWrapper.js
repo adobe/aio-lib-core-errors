@@ -13,6 +13,31 @@ const util = require('util')
 const AioCoreSDKError = require('./AioCoreSDKError')
 
 /**
+ * Returns a function that creates an Error class with the specified parameters.
+ * The returned function takes one parameter, code (string), which is the error code.
+ *
+ * @param {string} errorClassName
+ * @param {string} sdkName
+ * @param {string} message
+ * @param {Class} BaseClass
+ * @private
+ */
+function curryCreateClass (errorClassName, sdkName, message, BaseClass) {
+  return function (code) {
+    return class extends BaseClass {
+      constructor ({ sdkDetails, messageValues = [] } = {}) {
+        // wrap an array around it if not one
+        if (!Array.isArray(messageValues)) {
+          messageValues = [messageValues]
+        }
+        super(util.format(message, ...messageValues), code, sdkName, sdkDetails)
+        this.name = errorClassName
+      }
+    }
+  }
+}
+
+/**
  * Returns a function that will dynamically create a class with the
  * error code specified, and updates the objects specified via the Updater parameter.
  *
@@ -48,29 +73,8 @@ function createUpdater (codes, messages) {
 }
 
 /**
- * Returns a function that creates an Error class with the specified parameters.
- * The returned function takes one parameter, code (string), which is the error code.
- *
- * @param {string} errorClassName
- * @param {string} sdkName
- * @param {string} message
- * @param {Class} BaseClass
+ * @module AioCoreSDKErrorWrapper
  */
-function curryCreateClass (errorClassName, sdkName, message, BaseClass) {
-  return function (code) {
-    return class extends BaseClass {
-      constructor ({ sdkDetails, messageValues = [] } = {}) {
-        // wrap an array around it if not one
-        if (!Array.isArray(messageValues)) {
-          messageValues = [messageValues]
-        }
-        super(util.format(message, ...messageValues), code, sdkName, sdkDetails)
-        this.name = errorClassName
-      }
-    }
-  }
-}
-
 module.exports = {
   ErrorWrapper,
   createUpdater

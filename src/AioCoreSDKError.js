@@ -10,10 +10,19 @@ governing permissions and limitations under the License.
 */
 
 /**
- * Base class for all Adobe I/O Core SDK Errors.
- * Do not instantiate directly.
+ * The base class for all Adobe I/O Core SDK Errors.
  */
 class AioCoreSDKError extends Error {
+  /**
+   * Constructor.
+   * Do not instantiate directly, subclass this class instead.
+   *
+   * @param {string} [message=<no_message>] The message for the Error
+   * @param {string} [code=<unknown_code>] The code for the Error
+   * @param {string} [sdk=<unknown_sdk>] The SDK associated with the Error
+   * @param {object} [sdkDetails={}] The SDK details associated with the Error
+   * @param {boolean} [captureStackTrace=Error.captureStackTrace] if available, capture the V8 stack trace
+   */
   constructor (
     message = '<no_message>',
     code = '<unknown_code>',
@@ -34,6 +43,9 @@ class AioCoreSDKError extends Error {
     this.name = this.constructor.name
   }
 
+  /**
+   * Returns a JSON respresentation of this Error object.
+   */
   toJSON () {
     return {
       sdk: {
@@ -46,5 +58,7 @@ class AioCoreSDKError extends Error {
     }
   }
 }
-
+/**
+ * @module AioCoreSDKError
+ */
 module.exports = AioCoreSDKError
