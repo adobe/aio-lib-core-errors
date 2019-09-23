@@ -14,6 +14,11 @@ This contains the base class for all Adobe I/O Core Errors. Use this as an Error
 
 This module was inspired by how Node.js creates its own Error classes.
 
+
+## Architecture
+
+[![Adobe I/O Core Error Library Architecture](./media/architecture.svg)](./media/architecture.svg)
+
 ## AioCoreSDKError
 
 This is the base class for all the Error classes, and it should not be instantiated directly. Create your own subclass (dynamic usage) or use the ErrorWrapper below (static usage).
