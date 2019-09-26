@@ -10,6 +10,11 @@ governing permissions and limitations under the License.
 -->
 # aio-lib-core-errors
 
+[![Version](https://img.shields.io/npm/v/@adobe/aio-lib-core-errors.svg)](https://npmjs.org/package/@adobe/aio-lib-core-errors)
+[![Downloads/week](https://img.shields.io/npm/dw/@adobe/aio-lib-core-errors.svg)](https://npmjs.org/package/@adobe/aio-lib-core-errors)
+[![Build Status](https://travis-ci.com/adobe/aio-lib-core-errors.svg?branch=master)](https://travis-ci.com/adobe/aio-lib-core-errors)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) 
+[![Codecov Coverage](https://img.shields.io/codecov/c/github/adobe/aio-lib-core-errors/master.svg?style=flat-square)](https://codecov.io/gh/adobe/aio-lib-core-errors/)
 [![Greenkeeper badge](https://badges.greenkeeper.io/adobe/aio-lib-core-errors.svg)](https://greenkeeper.io/)
 
 This contains the base class for all Adobe I/O Core Errors. Use this as an Error class subclass for all your SDK Errors.
