@@ -16,9 +16,6 @@ This contains the base class for all Adobe I/O Core Errors. Use this as an Error
 
 This module was inspired by how Node.js creates its own Error classes.
 
-[Docs](./doc/api.md)
-
-
 ## Architecture
 
 [![Adobe I/O Core Error Library Architecture](./media/architecture.png)](./media/architecture.png)
@@ -282,3 +279,15 @@ Output:
 	"stacktrace": "MySDKError: [MySDK:UNKNOWN_ORDER_ID] There was a problem with that order id: ORDER-21241-FSFS.\n    at new <anonymous> (/Users/obfuscated/aio-lib-core-errors/src/AioCoreSDKErrorWrapper.js:22:9)\n    at Object.<anonymous>.test (/Users/obfuscated/aio-lib-core-errors/test/MySDKError.test.js:50:15)\n    at Object.asyncJestTest (/Users/obfuscated/aio-lib-core-errors/node_modules/jest-jasmine2/build/jasmineAsyncInstall.js:102:37)\n    at resolve (/Users/obfuscated/aio-lib-core-errors/node_modules/jest-jasmine2/build/queueRunner.js:43:12)\n    at new Promise (<anonymous>)\n    at mapper (/Users/obfuscated/aio-lib-core-errors/node_modules/jest-jasmine2/build/queueRunner.js:26:19)\n    at promise.then (/Users/obfuscated/aio-lib-core-errors/node_modules/jest-jasmine2/build/queueRunner.js:73:41)\n    at process._tickCallback (internal/process/next_tick.js:68:7)"
 }
 ```
+
+## Explore
+
+`goto` [API](./doc/api.md)
+
+## Contributing
+
+Contributions are welcomed! Read the [Contributing Guide](./.github/CONTRIBUTING.md) for more information.
+
+## Licensing
+
+This project is licensed under the Apache V2 License. See [LICENSE](LICENSE) for more information.
