@@ -10,6 +10,8 @@ governing permissions and limitations under the License.
 -->
 # aio-lib-core-errors
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/adobe/aio-lib-core-errors.svg)](https://greenkeeper.io/)
+
 This contains the base class for all Adobe I/O Core Errors. Use this as an Error class subclass for all your SDK Errors.
 
 This module was inspired by how Node.js creates its own Error classes.
