@@ -46,11 +46,9 @@ test('AioCoreSDKError with parameters', () => {
   expect(json).toMatchObject({
     code: 'ERR_CODE_1',
     message: '[MySDK:ERR_CODE_1] This is an error message',
-    sdk: {
-      details: {
-        endpoint: 'http://foo.bar'
-      },
-      name: 'MySDK'
-    }
+    sdkDetails: {
+      endpoint: 'http://foo.bar'
+    },
+    sdk: 'MySDK'
   })
 })

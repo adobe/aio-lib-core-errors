@@ -48,10 +48,8 @@ class AioCoreSDKError extends Error {
    */
   toJSON () {
     return {
-      sdk: {
-        name: this.sdk,
-        details: this.sdkDetails
-      },
+      sdk: this.sdk,
+      sdkDetails: this.sdkDetails,
       code: this.code,
       message: this.message,
       stacktrace: this.stack
