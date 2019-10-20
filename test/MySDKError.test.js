@@ -41,10 +41,8 @@ test('UNKNOWN_THING_ID default', () => {
   expect(json).toMatchObject({
     code: 'UNKNOWN_THING_ID',
     message: '[MySDK:UNKNOWN_THING_ID] There was a problem with that thing',
-    sdk: {
-      details: {},
-      name: 'MySDK'
-    }
+    sdkDetails: {},
+    sdk: 'MySDK'
   })
 })
 
@@ -70,11 +68,9 @@ test('UNKNOWN_ORDER_ID with order id', () => {
   expect(json).toMatchObject({
     code: 'UNKNOWN_ORDER_ID',
     message: '[MySDK:UNKNOWN_ORDER_ID] There was a problem with that order id: ORDER-21241-FSFS.',
-    sdk: {
-      details: {
-        tenantId: 'MYTENANT2'
-      },
-      name: 'MySDK'
-    }
+    sdkDetails: {
+      tenantId: 'MYTENANT2'
+    },
+    sdk: 'MySDK'
   })
 })
