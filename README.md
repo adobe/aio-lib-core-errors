@@ -21,6 +21,10 @@ This contains the base class for all Adobe I/O Core Errors. Use this as an Error
 
 This module was inspired by how Node.js creates its own Error classes.
 
+## Install
+
+`npm install @adobe/aio-lib-core-errors`
+
 ## Architecture
 
 [![Adobe I/O Core Error Library Architecture](./media/architecture.png)](./media/architecture.png)
