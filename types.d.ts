@@ -19,6 +19,19 @@ declare class AioCoreSDKError {
 }
 
 /**
+ * Returns a function that updates the parameters specified.
+ * This is used in ErrorWrapper.
+ *
+ * @name createUpdater
+ * @function
+ * @param {Object<string, Class>} codes an object that will map an error code to an Error class.
+ * @param {Map<string, string>} messages a Map, that will map the error code to an error message
+ */
+declare function createUpdater(codes: {
+    [key: string]: Class;
+}, messages: Map<string, string>): void;
+
+/**
  * Returns a function that will dynamically create a class with the
  * error code specified, and updates the objects specified via the Updater parameter.
  *
@@ -28,21 +41,10 @@ declare class AioCoreSDKError {
  *
  * @param {string} errorClassName The class name for your SDK Error. Your Error objects will be these objects
  * @param {string} sdkName The name of your SDK. This will be a property in your Error objects
- * @param {function} Updater the object returned from a CreateUpdater call
- * @param {Class} BaseClass the base class that your Error class is extending. AioCoreSDKError is the default
+ * @param {createUpdater} updater the object returned from a createUpdater call
+ * @param {Class} baseClass the base class that your Error class is extending. AioCoreSDKError is the default
  */
-declare function ErrorWrapper(errorClassName: string, sdkName: string, Updater: (...params: any[]) => any, BaseClass: Class): void;
-
-/**
- * Returns a function that updates the parameters specified.
- * This is used in ErrorWrapper.
- *
- * @param {Object<string, Class>} codes an object that will map an error code to an Error class.
- * @param {Map<string, string>} messages a Map, that will map the error code to an error message
- */
-declare function createUpdater(codes: {
-    [key: string]: Class;
-}, messages: Map<string, string>): void;
+declare function ErrorWrapper(errorClassName: string, sdkName: string, updater: createUpdater, baseClass: Class): void;
 
 /**
  * @module AioCoreSDKErrorWrapper

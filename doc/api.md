@@ -16,7 +16,11 @@
 ## Functions
 
 <dl>
-<dt><a href="#ErrorWrapper">ErrorWrapper(errorClassName, sdkName, Updater, BaseClass)</a></dt>
+<dt><a href="#createUpdater">createUpdater(codes, messages)</a></dt>
+<dd><p>Returns a function that updates the parameters specified.
+This is used in ErrorWrapper.</p>
+</dd>
+<dt><a href="#ErrorWrapper">ErrorWrapper(errorClassName, sdkName, updater, baseClass)</a></dt>
 <dd><p>Returns a function that will dynamically create a class with the
 error code specified, and updates the objects specified via the Updater parameter.</p>
 <p>The returned function takes two parameters:</p>
@@ -24,10 +28,6 @@ error code specified, and updates the objects specified via the Updater paramete
 <li>code (string), which is the error code.</li>
 <li>message (string), which is the error message (can contain format specifiers)</li>
 </ul>
-</dd>
-<dt><a href="#createUpdater">createUpdater(codes, messages)</a></dt>
-<dd><p>Returns a function that updates the parameters specified.
-This is used in ErrorWrapper.</p>
 </dd>
 </dl>
 
@@ -66,9 +66,22 @@ Do not instantiate directly, subclass this class instead.
 Returns a JSON respresentation of this Error object.
 
 **Kind**: instance method of [<code>AioCoreSDKError</code>](#AioCoreSDKError)  
+<a name="createUpdater"></a>
+
+## createUpdater(codes, messages)
+Returns a function that updates the parameters specified.
+This is used in ErrorWrapper.
+
+**Kind**: global function  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| codes | <code>Object.&lt;string, Class&gt;</code> | an object that will map an error code to an Error class. |
+| messages | <code>Map.&lt;string, string&gt;</code> | a Map, that will map the error code to an error message |
+
 <a name="ErrorWrapper"></a>
 
-## ErrorWrapper(errorClassName, sdkName, Updater, BaseClass)
+## ErrorWrapper(errorClassName, sdkName, updater, baseClass)
 Returns a function that will dynamically create a class with the
 error code specified, and updates the objects specified via the Updater parameter.
 
@@ -82,19 +95,6 @@ The returned function takes two parameters:
 | --- | --- | --- |
 | errorClassName | <code>string</code> | The class name for your SDK Error. Your Error objects will be these objects |
 | sdkName | <code>string</code> | The name of your SDK. This will be a property in your Error objects |
-| Updater | <code>function</code> | the object returned from a CreateUpdater call |
-| BaseClass | <code>Class</code> | the base class that your Error class is extending. AioCoreSDKError is the default |
-
-<a name="createUpdater"></a>
-
-## createUpdater(codes, messages)
-Returns a function that updates the parameters specified.
-This is used in ErrorWrapper.
-
-**Kind**: global function  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| codes | <code>Object.&lt;string, Class&gt;</code> | an object that will map an error code to an Error class. |
-| messages | <code>Map.&lt;string, string&gt;</code> | a Map, that will map the error code to an error message |
+| updater | [<code>createUpdater</code>](#createUpdater) | the object returned from a createUpdater call |
+| baseClass | <code>Class</code> | the base class that your Error class is extending. AioCoreSDKError is the default |
 
