@@ -1,8 +1,6 @@
 ## Modules
 
 <dl>
-<dt><a href="#module_AioCoreSDKError">AioCoreSDKError</a></dt>
-<dd></dd>
 <dt><a href="#module_AioCoreSDKErrorWrapper">AioCoreSDKErrorWrapper</a></dt>
 <dd></dd>
 </dl>
@@ -33,9 +31,6 @@ This is used in ErrorWrapper.</p>
 </dd>
 </dl>
 
-<a name="module_AioCoreSDKError"></a>
-
-## AioCoreSDKError
 <a name="module_AioCoreSDKErrorWrapper"></a>
 
 ## AioCoreSDKErrorWrapper
@@ -48,7 +43,7 @@ The base class for all Adobe I/O Core SDK Errors.
 
 * [AioCoreSDKError](#AioCoreSDKError)
     * [new AioCoreSDKError([message], [code], [sdk], [sdkDetails], [captureStackTrace])](#new_AioCoreSDKError_new)
-    * [.toJSON()](#AioCoreSDKError+toJSON)
+    * [.toJSON()](#AioCoreSDKError+toJSON) ⇒ <code>Object</code>
 
 <a name="new_AioCoreSDKError_new"></a>
 
@@ -67,7 +62,7 @@ Do not instantiate directly, subclass this class instead.
 
 <a name="AioCoreSDKError+toJSON"></a>
 
-### aioCoreSDKError.toJSON()
+### aioCoreSDKError.toJSON() ⇒ <code>Object</code>
 Returns a JSON respresentation of this Error object.
 
 **Kind**: instance method of [<code>AioCoreSDKError</code>](#AioCoreSDKError)  
@@ -98,8 +93,8 @@ This is used in ErrorWrapper.
 
 **Kind**: global function  
 
-| Param | Type |
-| --- | --- |
-| codes | <code>object</code> | 
-| messages | <code>Map</code> | 
+| Param | Type | Description |
+| --- | --- | --- |
+| codes | <code>Object.&lt;string, Class&gt;</code> | an object that will map an error code to an Error class. |
+| messages | <code>Map.&lt;string, string&gt;</code> | a Map, that will map the error code to an error message |
 

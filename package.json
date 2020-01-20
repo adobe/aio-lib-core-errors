@@ -6,7 +6,9 @@
   "scripts": {
     "test": "npm run lint && jest --coverage",
     "lint": "eslint .",
-    "docs": "jsdoc2md -f 'src/*.js' > doc/api.md"
+    "jsdoc": "jsdoc2md -f 'src/*.js' > doc/api.md",
+    "typings": "jsdoc -t node_modules/tsd-jsdoc/dist -r src -d .",
+    "generate-docs": "npm run jsdoc && npm run typings"
   },
   "repository": {
     "type": "git",
@@ -24,6 +26,7 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
     "jest": "^24.9.0",
-    "jsdoc-to-markdown": "^5.0.1"
+    "jsdoc-to-markdown": "^5.0.1",
+    "tsd-jsdoc": "^2.4.0"
   }
 }

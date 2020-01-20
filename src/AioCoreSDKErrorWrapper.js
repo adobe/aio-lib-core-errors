@@ -62,8 +62,8 @@ function ErrorWrapper (errorClassName, sdkName, Updater, BaseClass = AioCoreSDKE
  * Returns a function that updates the parameters specified.
  * This is used in ErrorWrapper.
  *
- * @param {object} codes
- * @param {Map} messages
+ * @param {Object<string, Class>} codes an object that will map an error code to an Error class.
+ * @param {Map<string, string>} messages a Map, that will map the error code to an error message
  */
 function createUpdater (codes, messages) {
   return function (code, message, clazz) {
