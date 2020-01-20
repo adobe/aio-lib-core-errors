@@ -45,6 +45,8 @@ class AioCoreSDKError extends Error {
 
   /**
    * Returns a JSON respresentation of this Error object.
+   *
+   * @return {Object}
    */
   toJSON () {
     return {
@@ -56,7 +58,5 @@ class AioCoreSDKError extends Error {
     }
   }
 }
-/**
- * @module AioCoreSDKError
- */
+
 module.exports = AioCoreSDKError
