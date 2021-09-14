@@ -28,5 +28,8 @@
     "jest": "^24.9.0",
     "jsdoc-to-markdown": "^5.0.1",
     "tsd-jsdoc": "^2.4.0"
-  }
+  },
+  "files": [
+    "src"
+  ]
 }
