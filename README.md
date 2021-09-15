@@ -12,7 +12,7 @@ governing permissions and limitations under the License.
 
 [![Version](https://img.shields.io/npm/v/@adobe/aio-lib-core-errors.svg)](https://npmjs.org/package/@adobe/aio-lib-core-errors)
 [![Downloads/week](https://img.shields.io/npm/dw/@adobe/aio-lib-core-errors.svg)](https://npmjs.org/package/@adobe/aio-lib-core-errors)
-[![Build Status](https://travis-ci.com/adobe/aio-lib-core-errors.svg?branch=master)](https://travis-ci.com/adobe/aio-lib-core-errors)
+[![Node.js CI](https://github.com/adobe/aio-lib-core-errors/actions/workflows/node.js.yml/badge.svg)](https://github.com/adobe/aio-lib-core-errors/actions/workflows/node.js.yml)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) 
 [![Codecov Coverage](https://img.shields.io/codecov/c/github/adobe/aio-lib-core-errors/master.svg?style=flat-square)](https://codecov.io/gh/adobe/aio-lib-core-errors/)
 
