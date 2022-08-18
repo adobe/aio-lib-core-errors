@@ -17,16 +17,16 @@
   "author": "Adobe Inc.",
   "license": "Apache-2.0",
   "devDependencies": {
-    "codecov": "^3.5.0",
     "@adobe/eslint-config-aio-lib-config": "^2",
+    "codecov": "^3.5.0",
     "eslint": "^8",
     "eslint-config-standard": "^17",
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-jest": "^23",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6",
-    "jest": "^24.9.0",
-    "jsdoc-to-markdown": "^5.0.1",
+    "jest": "^28.1.3",
+    "jsdoc-to-markdown": "^7.1.1",
     "tsd-jsdoc": "^2.4.0"
   },
   "files": [
