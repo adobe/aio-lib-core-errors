@@ -9,7 +9,11 @@
 ## Functions
 
 <dl>
-<dt><a href="#ErrorWrapper">ErrorWrapper(errorClassName, sdkName, updater, baseClass)</a></dt>
+<dt><a href="#createUpdater">createUpdater(codes, messages)</a> ⇒ <code>function</code></dt>
+<dd><p>Returns a function that updates the parameters specified.
+This is used in ErrorWrapper.</p>
+</dd>
+<dt><a href="#ErrorWrapper">ErrorWrapper(errorClassName, sdkName, updater, baseClass)</a> ⇒ <code>function</code></dt>
 <dd><p>Returns a function that will dynamically create a class with the
 error code specified, and updates the objects specified via the Updater parameter.</p>
 <p>The returned function takes two parameters:</p>
@@ -17,15 +21,6 @@ error code specified, and updates the objects specified via the Updater paramete
 <li>code (string), which is the error code.</li>
 <li>message (string), which is the error message (can contain format specifiers)</li>
 </ul>
-</dd>
-</dl>
-
-## Typedefs
-
-<dl>
-<dt><a href="#createUpdater">createUpdater</a> : <code>function</code></dt>
-<dd><p>Returns a function that updates the parameters specified.
-This is used in ErrorWrapper.</p>
 </dd>
 </dl>
 
@@ -38,7 +33,7 @@ The base class for all Adobe I/O Core SDK Errors.
 
 * [AioCoreSDKError](#AioCoreSDKError)
     * [new AioCoreSDKError([message], [code], [sdk], [sdkDetails], [captureStackTrace])](#new_AioCoreSDKError_new)
-    * [.toJSON()](#AioCoreSDKError+toJSON) ⇒ <code>Object</code>
+    * [.toJSON()](#AioCoreSDKError+toJSON) ⇒ <code>object</code>
 
 <a name="new_AioCoreSDKError_new"></a>
 
@@ -57,13 +52,28 @@ Do not instantiate directly, subclass this class instead.
 
 <a name="AioCoreSDKError+toJSON"></a>
 
-### aioCoreSDKError.toJSON() ⇒ <code>Object</code>
+### aioCoreSDKError.toJSON() ⇒ <code>object</code>
 Returns a JSON respresentation of this Error object.
 
 **Kind**: instance method of [<code>AioCoreSDKError</code>](#AioCoreSDKError)  
+**Returns**: <code>object</code> - this error object as json  
+<a name="createUpdater"></a>
+
+## createUpdater(codes, messages) ⇒ <code>function</code>
+Returns a function that updates the parameters specified.
+This is used in ErrorWrapper.
+
+**Kind**: global function  
+**Returns**: <code>function</code> - an updater function  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| codes | <code>object.&lt;string, Error&gt;</code> | an object that will map an error code to an Error class. |
+| messages | <code>Map.&lt;string, string&gt;</code> | a Map, that will map the error code to an error message |
+
 <a name="ErrorWrapper"></a>
 
-## ErrorWrapper(errorClassName, sdkName, updater, baseClass)
+## ErrorWrapper(errorClassName, sdkName, updater, baseClass) ⇒ <code>function</code>
 Returns a function that will dynamically create a class with the
 error code specified, and updates the objects specified via the Updater parameter.
 
@@ -72,6 +82,7 @@ The returned function takes two parameters:
    - message (string), which is the error message (can contain format specifiers)
 
 **Kind**: global function  
+**Returns**: <code>function</code> - a wrapper function  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -79,17 +90,4 @@ The returned function takes two parameters:
 | sdkName | <code>string</code> | The name of your SDK. This will be a property in your Error objects |
 | updater | [<code>createUpdater</code>](#createUpdater) | the object returned from a createUpdater call |
 | baseClass | <code>Error</code> | the base class that your Error class is extending. AioCoreSDKError is the default |
-
-<a name="createUpdater"></a>
-
-## createUpdater : <code>function</code>
-Returns a function that updates the parameters specified.
-This is used in ErrorWrapper.
-
-**Kind**: global typedef  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| codes | <code>Object.&lt;string, Error&gt;</code> | an object that will map an error code to an Error class. |
-| messages | <code>Map.&lt;string, string&gt;</code> | a Map, that will map the error code to an error message |
 

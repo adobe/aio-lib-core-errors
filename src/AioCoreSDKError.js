@@ -46,7 +46,7 @@ class AioCoreSDKError extends Error {
   /**
    * Returns a JSON respresentation of this Error object.
    *
-   * @return {Object}
+   * @returns {object} this error object as json
    */
   toJSON () {
     return {

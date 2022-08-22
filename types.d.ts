@@ -11,6 +11,7 @@ declare class AioCoreSDKError {
     constructor(message?: string, code?: string, sdk?: string, sdkDetails?: any, captureStackTrace?: boolean);
     /**
      * Returns a JSON respresentation of this Error object.
+     * @returns this error object as json
      */
     toJSON(): any;
 }
@@ -20,10 +21,11 @@ declare class AioCoreSDKError {
  * This is used in ErrorWrapper.
  * @param codes - an object that will map an error code to an Error class.
  * @param messages - a Map, that will map the error code to an error message
+ * @returns an updater function
  */
-declare type createUpdater = (codes: {
+declare function createUpdater(codes: {
     [key: string]: Error;
-}, messages: Map<string, string>) => void;
+}, messages: Map<string, string>): (...params: any[]) => any;
 
 /**
  * Returns a function that will dynamically create a class with the
@@ -36,6 +38,7 @@ declare type createUpdater = (codes: {
  * @param sdkName - The name of your SDK. This will be a property in your Error objects
  * @param updater - the object returned from a createUpdater call
  * @param baseClass - the base class that your Error class is extending. AioCoreSDKError is the default
+ * @returns a wrapper function
  */
-declare function ErrorWrapper(errorClassName: string, sdkName: string, updater: createUpdater, baseClass: Error): void;
+declare function ErrorWrapper(errorClassName: string, sdkName: string, updater: createUpdater, baseClass: Error): (...params: any[]) => any;
 

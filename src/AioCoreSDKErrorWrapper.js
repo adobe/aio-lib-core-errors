@@ -41,9 +41,9 @@ function curryCreateClass (errorClassName, sdkName, message, BaseClass) {
  * Returns a function that updates the parameters specified.
  * This is used in ErrorWrapper.
  *
- * @callback createUpdater
- * @param {Object<string, Error>} codes an object that will map an error code to an Error class.
- * @param {Map<string, string>} messages a Map, that will map the error code to an error message
+ * @param {object<string, Error>} codes an object that will map an error code to an Error class.
+ * @param {Map.<string, string>} messages a Map, that will map the error code to an error message
+ * @returns {Function} an updater function
  */
 function createUpdater (codes, messages) {
   return function (code, message, clazz) {
@@ -64,6 +64,7 @@ function createUpdater (codes, messages) {
  * @param {string} sdkName The name of your SDK. This will be a property in your Error objects
  * @param {createUpdater} updater the object returned from a createUpdater call
  * @param {Error} baseClass the base class that your Error class is extending. AioCoreSDKError is the default
+ * @returns {Function} a wrapper function
  */
 function ErrorWrapper (errorClassName, sdkName, updater, baseClass = AioCoreSDKError) {
   return function (code, message) {
