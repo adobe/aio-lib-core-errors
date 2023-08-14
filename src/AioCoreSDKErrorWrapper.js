@@ -41,7 +41,7 @@ function curryCreateClass (errorClassName, sdkName, message, BaseClass) {
  * Returns a function that updates the parameters specified.
  * This is used in ErrorWrapper.
  *
- * @param {object<string, Error>} codes an object that will map an error code to an Error class.
+ * @param {Object<string, Error>} codes an object that will map an error code to an Error class.
  * @param {Map.<string, string>} messages a Map, that will map the error code to an error message
  * @returns {Function} an updater function
  */
